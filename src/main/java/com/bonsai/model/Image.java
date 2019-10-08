@@ -32,11 +32,23 @@ public class Image {
 
 	private Date created_at;
 
+	public Image(String id, String title, String unsigned_title, String summary, String content, String link,
+			String id_tree_type, String author_name) {
+		super();
+		this.id = id;
+		this.title = title;
+		this.unsigned_title = unsigned_title;
+		this.summary = summary;
+		this.content = content;
+		this.link = link;
+		this.id_tree_type = id_tree_type;
+		this.author_name = author_name;
+	}
+
 	private Date last_modified;
 
 	public Image(String id, String title, String unsigned_title, String summary, String content, String link,
-			boolean highlights, Double views, String id_tree_type, String author_name, Date created_at,
-			Date last_modified) {
+			boolean highlights, Double views, String id_tree_type, String author_name) {
 		this.id = id;
 		this.title = title;
 		this.unsigned_title = unsigned_title;
@@ -47,8 +59,6 @@ public class Image {
 		this.views = views;
 		this.id_tree_type = id_tree_type;
 		this.author_name = author_name;
-		this.created_at = created_at;
-		this.last_modified = last_modified;
 	}
 	
 	public Image() {
