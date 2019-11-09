@@ -34,7 +34,6 @@ public class Image {
 
 	public Image(String id, String title, String unsigned_title, String summary, String content, String link,
 			String id_tree_type, String author_name) {
-		super();
 		this.id = id;
 		this.title = title;
 		this.unsigned_title = unsigned_title;
