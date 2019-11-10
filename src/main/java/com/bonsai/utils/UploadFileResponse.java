@@ -1,4 +1,4 @@
-package com.bonsai.service;
+package com.bonsai.utils;
 
 public class UploadFileResponse {
 	private String fileName;

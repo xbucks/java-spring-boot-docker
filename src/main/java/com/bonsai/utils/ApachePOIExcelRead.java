@@ -1,9 +1,8 @@
-package com.bonsai.service;
+package com.bonsai.utils;
 
 import com.bonsai.model.Image;
 
 import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -15,14 +14,12 @@ import java.io.IOException;
 import java.util.Iterator;
 
 public class ApachePOIExcelRead {
-	private FileInputStream fis;
 	private Workbook workbook;
 
 	public ApachePOIExcelRead(FileInputStream fis) throws IOException {
 		if (fis.equals(null)) {
 			fis = new FileInputStream(new File("C:/Users/ADMIN/Desktop/BonSai.xlsx"));
 		}
-		this.fis = fis;
 		workbook = new XSSFWorkbook(fis);
 	}
 

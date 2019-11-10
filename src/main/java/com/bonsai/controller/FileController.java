@@ -23,7 +23,7 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import com.bonsai.service.FileStorageService;
-import com.bonsai.service.UploadFileResponse;
+import com.bonsai.utils.UploadFileResponse;
 
 @RestController
 public class FileController {

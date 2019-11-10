@@ -9,6 +9,34 @@ import javax.persistence.Table;
 @Entity
 @Table(name = "image")
 public class Image {
+	public Image(String id, String title, String unsigned_title, String summary, String content, String link,
+			String id_tree_type, String author_name) {
+		this.id = id;
+		this.title = title;
+		this.unsigned_title = unsigned_title;
+		this.summary = summary;
+		this.content = content;
+		this.link = link;
+		this.id_tree_type = id_tree_type;
+		this.author_name = author_name;
+	}
+	
+	public Image(String id, String title, String unsigned_title, String summary, String content, String link,
+			boolean highlights, Double views, String id_tree_type, String author_name) {
+		this.id = id;
+		this.title = title;
+		this.unsigned_title = unsigned_title;
+		this.summary = summary;
+		this.content = content;
+		this.link = link;
+		this.highlights = highlights;
+		this.views = views;
+		this.id_tree_type = id_tree_type;
+		this.author_name = author_name;
+	}
+	
+	public Image() {}
+	
 	@Id
 	private String id;
 
@@ -31,38 +59,9 @@ public class Image {
 	private String author_name;
 
 	private Date created_at;
-
-	public Image(String id, String title, String unsigned_title, String summary, String content, String link,
-			String id_tree_type, String author_name) {
-		this.id = id;
-		this.title = title;
-		this.unsigned_title = unsigned_title;
-		this.summary = summary;
-		this.content = content;
-		this.link = link;
-		this.id_tree_type = id_tree_type;
-		this.author_name = author_name;
-	}
-
+	
 	private Date last_modified;
 
-	public Image(String id, String title, String unsigned_title, String summary, String content, String link,
-			boolean highlights, Double views, String id_tree_type, String author_name) {
-		this.id = id;
-		this.title = title;
-		this.unsigned_title = unsigned_title;
-		this.summary = summary;
-		this.content = content;
-		this.link = link;
-		this.highlights = highlights;
-		this.views = views;
-		this.id_tree_type = id_tree_type;
-		this.author_name = author_name;
-	}
-	
-	public Image() {
-		
-	}
 
 	public String getId() {
 		return id;

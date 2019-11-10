@@ -1,10 +1,9 @@
-package com.bonsai.service;
+package com.bonsai.utils;
 
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 
-import org.apache.coyote.http11.OutputFilter;
 import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.xssf.usermodel.XSSFSheet;
@@ -14,7 +13,7 @@ public class ApachePOIExcelWrite {
 	
 	private static final String FILE_NAME = "C:/Users/ADMIN/Desktop/Test.xlsx";
 	
-	public static void main(String[] args) {
+	public void createFile() {
 		
 		XSSFWorkbook  workbook = new XSSFWorkbook();
 		XSSFSheet sheet = workbook.createSheet("Bonsai Data");

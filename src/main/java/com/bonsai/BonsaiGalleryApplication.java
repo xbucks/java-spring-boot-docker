@@ -2,20 +2,25 @@ package com.bonsai;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.boot.context.properties.EnableConfigurationProperties;
+import org.springframework.context.annotation.ComponentScan;
+import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Import;
+import org.springframework.context.annotation.Profile;
 
 import com.bonsai.model.FileStorageProperties;
-import com.bonsai.service.WebCrawler;
 
-@SpringBootApplication
-@EnableConfigurationProperties({
+@Import({
 	FileStorageProperties.class
 })
+@SpringBootApplication
 public class BonsaiGalleryApplication {
 
 	public static void main(String[] args) {
 		SpringApplication.run(BonsaiGalleryApplication.class, args);
-		new WebCrawler().test();
 	}
-
+	@Configuration
+    @Profile("local")
+    @ComponentScan(lazyInit = true)
+	static class LocalConfig {
+    }
 }

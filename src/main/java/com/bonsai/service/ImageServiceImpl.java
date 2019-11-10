@@ -44,21 +44,5 @@ public class ImageServiceImpl implements ImageService{
 	public Iterable<Image> findAll() {
 		return ImageRepository.findAll();
 	}
-	
-//	public void importImage(Image image) {
-//
-//	    MultipartFile proudctImage = product.getProudctImage();
-//
-//	    if (!proudctImage.isEmpty()) {
-//	        try {
-//	            proudctImage.transferTo(resourceLoader.getResource("resources/images/"+product.getProductId()+".png").getFile());
-//
-//	        } catch (Exception e) {
-//	            throw new RuntimeException("Product Image saving failed", e);
-//	        }
-//	    }
-//
-//	    listOfProducts.add(product);
-//	}
 
 }
