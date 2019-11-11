@@ -1,9 +1,14 @@
 package com.bonsai.model;
 
 import java.util.Date;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.Table;
 
+@Entity
+@Table(name = "tree_type")
 public class TreeType {
-	
+	@Id
 	public String id;
 	
 	public String id_type;

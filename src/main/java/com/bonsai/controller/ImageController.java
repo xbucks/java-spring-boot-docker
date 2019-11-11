@@ -3,6 +3,8 @@ package com.bonsai.controller;
 import java.io.IOException;
 import java.util.Date;
 import java.util.List;
+
+import javax.transaction.Transactional;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,7 +15,8 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
 import com.bonsai.model.Image;
-import com.bonsai.service.ImageServiceImpl;
+import com.bonsai.model.TreeType;
+import com.bonsai.service.ImageService;
 import com.bonsai.service.QueryService;
 import com.bonsai.utils.ApachePOIExcelRead;
 import com.bonsai.utils.WebCrawler;
@@ -23,11 +26,11 @@ import com.bonsai.utils.WebCrawler;
 public class ImageController {
 
 	@Autowired
-	private final ImageServiceImpl imageService;
+	private final ImageService imageService;
 	
 
 	@Autowired
-	private  ImageController(ImageServiceImpl imageService) {
+	private  ImageController(ImageService imageService) {
 		this.queryService = new QueryService();
 		this.imageService = imageService;
 	}
@@ -125,10 +128,17 @@ public class ImageController {
 		}
 	}
 	
-	// Xóa một tấm ảnh
+	// Lấy ảnh theo id_tr
 	@RequestMapping(value = "/getImagesbyGroupId/{id}", method = RequestMethod.GET)
 	public List<Image> getImagesbyGroupId(@PathVariable("id") String id) {
-		List<Image> allImage = (List<Image>) queryService.JPQLQuery(id);
+		List<Image> allImage = queryService.JPQLQuery(id);
 		return allImage;
+	}
+	
+	// Lấy ảnh theo id_tr
+	@RequestMapping(value = "/getAllTreeTypes", method = RequestMethod.GET)
+	public List<TreeType> getImagesbyGroupId() {
+		List<TreeType> allTypes = queryService.getAllCategory();
+		return allTypes;
 	}
 }
