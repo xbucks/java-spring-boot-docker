@@ -2,6 +2,8 @@ package com.bonsai.model;
 
 import java.util.Date;
 
+import com.bonsai.utils.UploadFileResponse;
+
 public class User {
 	private String id;
 	private String name;
@@ -10,6 +12,15 @@ public class User {
 	private String remember_token;
 	private Date created_at;
 	private Date last_modified;
+	private UploadFileResponse uploadFileResponse;
+
+	public UploadFileResponse getUploadFileResponse() {
+		return uploadFileResponse;
+	}
+
+	public void setUploadFileResponse(UploadFileResponse uploadFileResponse) {
+		this.uploadFileResponse = uploadFileResponse;
+	}
 
 	public String getId() {
 		return id;

@@ -11,7 +11,7 @@ import org.springframework.stereotype.Service;
 
 import com.bonsai.model.Image;
 import com.bonsai.model.TreeType;
-import com.bonsai.repository.ImageRepository;
+
 import com.bonsai.repository.TreeTypeRepository;
 
 @Service

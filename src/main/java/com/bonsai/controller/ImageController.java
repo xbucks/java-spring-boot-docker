@@ -1,10 +1,11 @@
 package com.bonsai.controller;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.stream.Collectors;
 
-import javax.transaction.Transactional;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,9 +16,13 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
 import com.bonsai.model.Image;
+import com.bonsai.model.PageDataDTO;
+import com.bonsai.model.Resource;
 import com.bonsai.model.TreeType;
+import com.bonsai.repository.ResourceRepository;
 import com.bonsai.service.ImageService;
 import com.bonsai.service.QueryService;
+import com.bonsai.service.ResourceService;
 import com.bonsai.utils.ApachePOIExcelRead;
 import com.bonsai.utils.WebCrawler;
 
@@ -28,9 +33,16 @@ public class ImageController {
 	@Autowired
 	private final ImageService imageService;
 	
+	@Autowired
+	private final ResourceService resourceService;
+	
+	@Autowired
+	ResourceRepository resourceRepository;
+	
 
 	@Autowired
 	private  ImageController(ImageService imageService) {
+		this.resourceService = new ResourceService();
 		this.queryService = new QueryService();
 		this.imageService = imageService;
 	}
@@ -74,9 +86,22 @@ public class ImageController {
 
 	// Trả về một Object dạng JSON
 	@RequestMapping(value = "/getImage/{id}", method = RequestMethod.GET)
-	public ResponseEntity<Image> getImage(@PathVariable("id") String id, Model model) {
-		Image image = imageService.findById(id).get();
-		return new ResponseEntity<Image>(image, HttpStatus.OK);
+	public ResponseEntity<List<Image>> getImage(@PathVariable("id") String id, Model model) {
+		List<Image> images = new ArrayList<Image>();
+		if(id.contains(",")) {
+			String[] listId = id.split(",");
+			for(String imgId : listId) {
+				Image image = new Image();
+				image = imageService.findById(imgId).get();
+				images.add(image);
+			}
+			System.out.println(listId);
+		}
+		else {
+			Image image = imageService.findById(id).get();
+			images.add(image);
+		}
+		return new ResponseEntity<List<Image>>(images, HttpStatus.OK);
 	}
 
 	// Update một tấm ảnh
@@ -98,16 +123,11 @@ public class ImageController {
 	}
 	
 	
-	// Lay du lieu anh
-	@RequestMapping(value = "/getImageSource", method = RequestMethod.GET)
-	public ResponseEntity<List<String>> getImageSource(String searchTerm) throws InterruptedException, IOException{
-		List<String> allImgSrc = new WebCrawler().getPageLinks(searchTerm);
-		if(allImgSrc!=null) {
-			return new ResponseEntity<List<String>>(allImgSrc,HttpStatus.OK);
-		}
-		else {
-			return new ResponseEntity<List<String>>(HttpStatus.BAD_REQUEST);
-		}
+	// Lưu ảnh crawl được về database
+	@RequestMapping(value = "/getImageResource", method = RequestMethod.GET)
+	public String getImageSource(String searchTerm) throws InterruptedException, IOException{
+		resourceService.getAllResource(searchTerm);	
+		return "Ok";
 	}
 	
 	// Khởi tạo ảnh trong database
@@ -129,10 +149,18 @@ public class ImageController {
 	}
 	
 	// Lấy ảnh theo id_tr
-	@RequestMapping(value = "/getImagesbyGroupId/{id}", method = RequestMethod.GET)
-	public List<Image> getImagesbyGroupId(@PathVariable("id") String id) {
+	@RequestMapping(value = "/getImagesbyGroupId/{id}/{page}", method = RequestMethod.GET)
+	public PageDataDTO getImagesbyGroupId(@PathVariable("id") String id, @PathVariable("page") int page) {
 		List<Image> allImage = queryService.JPQLQuery(id);
-		return allImage;
+		int size = 6;
+		PageDataDTO result = new PageDataDTO();
+		
+		result.setTotal(allImage.size());
+		result.setPageData(allImage.stream()
+				  .skip(page * size)
+				  .limit(size)
+				  .collect(Collectors.toCollection(ArrayList::new)));
+		return result;
 	}
 	
 	// Lấy ảnh theo id_tr
@@ -141,4 +169,5 @@ public class ImageController {
 		List<TreeType> allTypes = queryService.getAllCategory();
 		return allTypes;
 	}
+	
 }

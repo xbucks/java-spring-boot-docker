@@ -1,0 +1,23 @@
+1 - Đăng nhập vào trang quản lý DNS của tên miền
+	1.1 Cập nhật bản ghi:
+		-IP: 103.104.117.157
+		-Cname: {tên miền của nhóm} - (giả sử dichvu.com)
+	1.2 Kiểm tra:
+		-ping {tên miền} - (dichvu.com)
+		-nếu đúng sẽ hiển thị IP ở trên
+
+2- Quản trị site:
+	2.1 Đăng nhập
+		-URL: https://103.104.117.157:2083/ --> Bỏ qua bảo mật
+		-Account: {tên miền bỏ đuôi} (dichvu) - {mật khẩu cung cấp riêng}
+	2.2 Cấu hình cơ sở dữ liệu
+		-Tạo tên CSDL: {tối đa 8 ký tự đầu của tên miền}_data
+		-Tạo người sử dụng CSDL: {tối đa 8 ký tự đầu}_group10
+		-Cấp quyền làm việc: chọn CSDL - chọn người sử dụng -> cấp tất cả quyền
+	2.3 Import CSDL
+		-Export từ máy cá nhân ra định dạng *.sql
+		-Chọn CSDL và thực hiện import
+	2.4 Tải mã nguồn
+		-Vào phần Bộ quản lý tệp -> thư mục public_html
+		-Tải toàn bộ mã nguồn vào public_html
+	
